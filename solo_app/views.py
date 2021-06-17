@@ -86,7 +86,7 @@ def group(request, group_id):
     context = {
         'group' : a_group
     }
-    return render(request, group.html, context)
+    return render(request, 'group.html', context)
 
 #def addUserToGroup(request, group_id):
  #   userId = request.session['user_id']

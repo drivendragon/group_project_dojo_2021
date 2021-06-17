@@ -9,5 +9,6 @@ urlpatterns = [
     path('logout', views.logout),
     path('new', views.new),
     path('create', views.create),
+    path('go_to/<int:group_id>', views.group),
     path('favorite/<int:group_id>', views.joinGroup),
 ]

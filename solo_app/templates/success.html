@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/new">Create a Show</a></button>
+                <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/new">Create a Group</a></button>
             </div>
         </div>
         <div class="col">
@@ -28,7 +28,7 @@
             {% endfor %}
             <h1>Joined Groups</h1>
             {% for group in user.users_groups.all %}
-                {{ group.group_name }}
+                <a href="/go_to/{{ group.id }}">{{ group.group_name }}</a>
             {% endfor %}
         </div>
     </div>
