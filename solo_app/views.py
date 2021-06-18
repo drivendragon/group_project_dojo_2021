@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import bcrypt
+from django.http import HttpResponseRedirect
 from .models import *
 
 # Create your views here.
@@ -83,8 +84,10 @@ def create(request):
 
 def group(request, group_id):
     a_group = Group.objects.get(id=group_id)
+    group_messages = Wall_Message.objects.filter(group_id = group_id)
     context = {
-        'group' : a_group
+        'group' : a_group,
+        'group_messages': group_messages
     }
     return render(request, 'group.html', context)
 
@@ -101,3 +104,11 @@ def joinGroup(request, group_id):
     group = Group.objects.get(id=group_id)
     user.users_groups.add(group)
     return redirect('/success')
+
+def post_mess(request, group_id):
+    Wall_Message.objects.create(
+        message=request.POST['mess'],
+        poster=User.objects.get(id=request.session['user_id']),
+        group=Group.objects.get(id=group_id)
+        )
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

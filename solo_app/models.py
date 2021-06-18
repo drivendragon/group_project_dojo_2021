@@ -30,8 +30,6 @@ class User(models.Model):
     updated_at = models.DateField(auto_now=True)
     objects = UserManager()
     
-    
-    
 class GroupManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
@@ -42,6 +40,7 @@ class GroupManager(models.Manager):
         if len(postData['prayer_list']) < 1:
             errors['prayer_list'] = "Let the group know what to pray about!"
         return errors
+    
 class Group(models.Model):
     group_name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -51,6 +50,12 @@ class Group(models.Model):
     updated_at = models.DateField(auto_now=True)
     objects = GroupManager()
     
+class Wall_Message(models.Model):
+    message = models.CharField(max_length=255)
+    poster = models.ForeignKey(User, related_name='user_messages', on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, related_name='group_messages', on_delete=models.CASCADE)
+    
+
     
 class Prayer(models.Model):
     fk_user=models.ForeignKey(User, related_name='fk_user', on_delete=models.CASCADE)
