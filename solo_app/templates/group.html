@@ -29,17 +29,19 @@
     <textarea name="description" id="description" cols="30" rows="10">{{ group.prayer_list }}</textarea>
 
     <div id='write'>
-        <h3>Write a message</h3>
+        <h3>Posts</h3>
+        <div>
+            {% for post in group_messages %}
+                <p>{{post.message}}</p>
+            {% endfor %}
+        </div>
+        <h3>Write a new post</h3>
         <form action="/process_message/{{ group.id }}" method=POST>
             {% csrf_token %}
             <input type="text" name='mess'>
             <input type="submit" value='POST'>
         </form>
     </div>
-    <div>
-        {% for post in group_messages %}
-            <p>{{post.message}}</p>
-        {% endfor %}
-    </div>
+
 </body>
 </html>

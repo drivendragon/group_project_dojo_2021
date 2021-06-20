@@ -112,3 +112,22 @@ def post_mess(request, group_id):
         group=Group.objects.get(id=group_id)
         )
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def user_profile(request, user_id):
+    # user_testi=User.objects.create(
+    #     user_testimony=request.POST['testi']
+    #     )
+    user = User.objects.get(id=request.session['user_id'])
+    context = {
+        'groups': Group.objects.all(),
+        'user': User.objects.get(id=request.session['user_id']),
+        'isSignedInUser': user.id == user_id,
+    }
+    return render(request, 'user.html', context)
+
+def create_testimony(request, user_id):
+    signed_in_user = User.objects.get(id=request.session['user_id'])
+    signed_in_user.user_testimony=request.POST.get('testi')
+    signed_in_user.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

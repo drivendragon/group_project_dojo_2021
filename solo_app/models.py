@@ -26,6 +26,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
+    user_testimony = models.TextField(blank=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     objects = UserManager()
@@ -54,8 +55,6 @@ class Wall_Message(models.Model):
     message = models.CharField(max_length=255)
     poster = models.ForeignKey(User, related_name='user_messages', on_delete=models.CASCADE)
     group = models.ForeignKey(Group, related_name='group_messages', on_delete=models.CASCADE)
-    
-
     
 class Prayer(models.Model):
     fk_user=models.ForeignKey(User, related_name='fk_user', on_delete=models.CASCADE)

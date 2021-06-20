@@ -12,4 +12,6 @@ urlpatterns = [
     path('go_to/<int:group_id>', views.group),
     path('favorite/<int:group_id>', views.joinGroup),
     path('process_message/<int:group_id>', views.post_mess),
+    path('user/<int:user_id>', views.user_profile),
+    path('create_testimony/<int:user_id>', views.create_testimony)
 ]

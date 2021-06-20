@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <h1>this is a placeholder for {{ user.first_name }} {{ user.first_name }}</h1>
+    <h1>testimony</h1>
+    <p>{{ user.user_testimony }}</p>
+    <h1>Joined Groups</h1>
+    {% for group in user.users_groups.all %}
+        <a href="/go_to/{{ group.id }}">{{ group.group_name }}</a>
+    {% endfor %}
+
+    {% if isSignedInUser == True %}
+    <form action="/create_testimony/{{ user.id }}" method="post">
+        {% csrf_token %}
+        <input type="text" name='testi' id="testi">
+        <input type="submit" value='POST'>
+    </form>
+        <p>This is the signed in user</p>
+    {% else %}
+        <p>This is NOT the signed in user</p>
+    {% endif %}
+    
+</body>
+</html>
