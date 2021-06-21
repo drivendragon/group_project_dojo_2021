@@ -12,29 +12,36 @@
 </head>
 <body>
     <div class ="container mt-5">
-        <h1>Howdy, {{request.session.user_name}}!</h1>
-        <div class="col">
-            <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
-        </div>
-        <div class="row">
+        <div class="col text-center border border-dark mt-2 mx-5 pb-2">
+            <h1>Welcome, {{request.session.user_name}}! LUP</h1>
             <div class="col">
-                <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/new">Create a Group</a></button>
-            </div>
+                <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
+            
+            
+                
+                    <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/new">Create a Group</a></button>
+                
+            
+            
+                
+                    <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/user/{{ request.session.user_id }}">Go to profile</a></button>
+                </div>
+            
         </div>
-        <div class="row">
+
+        <div class="row ">
             <div class="col">
-                <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/user/{{ request.session.user_id }}">Go to profile</a></button>
+                <h1>Joined Groups</h1>
+                {% for group in user.users_groups.all %}
+                    <li> <a href="/go_to/{{ group.id }}">{{ group.group_name }}</a> </li>
+                {% endfor %}
             </div>
-        </div>
-        <div class="col">
-            <h1>All Groups</h1>
-            {% for group in groups %}
-                <a href="/favorite/{{group.id}}">Add {{ group.group_name }} To Your Prayer Groups</a>
-            {% endfor %}
-            <h1>Joined Groups</h1>
-            {% for group in user.users_groups.all %}
-                <a href="/go_to/{{ group.id }}">{{ group.group_name }}</a>
-            {% endfor %}
+            <div class="col">
+                <h1>All Groups</h1>
+                {% for group in groups %}
+                    <li> Add <a href="/favorite/{{group.id}}">Add {{ group.group_name }}</a>  To Your Prayer Groups </li> 
+                {% endfor %}
+            </div>
         </div>
     </div>
 
