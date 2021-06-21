@@ -11,30 +11,43 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-    <h1>this is a placeholder for {{ user.first_name }} {{ user.first_name }}</h1>
-    <div class="col">
-        <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
-    </div>
-    <div class="col">
-        <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/success">Groups</a></button>
-    </div>
-    <h1>testimony</h1>
-    <p>{{ user.user_testimony }}</p>
-    <h1>Joined Groups</h1>
-    {% for group in user.users_groups.all %}
-        <a href="/go_to/{{ group.id }}">{{ group.group_name }}</a>
-    {% endfor %}
+    <div class="container mt-5">
+        <div class="col text-center border border-dark mt-2 mx-5 pb-2">
+            <h1>Thank you for viewing, {{ user.first_name }} {{ user.first_name }}'s profile! LUP</h1>
+            <div class="col">
+                <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
+                <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/success">Groups</a></button>
+            </div>
+        </div>
+        <div class="row">
 
-    {% if isSignedInUser == True %}
-    <form action="/create_testimony/{{ user.id }}" method="post">
-        {% csrf_token %}
-        <input type="text" name='testi' id="testi">
-        <input type="submit" value='POST'>
-    </form>
-        <p>This is the signed in user</p>
-    {% else %}
-        <p>This is NOT the signed in user</p>
-    {% endif %}
+            <div class="col">
+                <h1>Joined Groups</h1>
+                {% for group in user.users_groups.all %}
+                    <li> <a href="/go_to/{{ group.id }}">{{ group.group_name }}</a> </li>
+                {% endfor %}
+            
+
+            </div>
+            <div class="col">
+                <h1>{{user.first_name}}'s Testimony</h1>
+                <p>{{ user.user_testimony }}</p>
+                {% if isSignedInUser == True %}
+                <form action="/create_testimony/{{ user.id }}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name='testi' id="testi">
+                    <input type="submit" value='POST'>
+                </form>
+                    <p>This is the signed in user</p>
+                {% else %}
+                    <p>This is NOT the signed in user</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
     
 </body>
 </html>

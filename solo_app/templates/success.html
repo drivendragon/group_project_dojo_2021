@@ -16,17 +16,9 @@
             <h1>Welcome, {{request.session.user_name}}! LUP</h1>
             <div class="col">
                 <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
-            
-            
-                
                     <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/new">Create a Group</a></button>
-                
-            
-            
-                
                     <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/user/{{ request.session.user_id }}">Go to profile</a></button>
                 </div>
-            
         </div>
 
         <div class="row ">
