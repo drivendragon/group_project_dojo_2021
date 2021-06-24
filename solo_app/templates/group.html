@@ -11,36 +11,40 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-    <div class="col">
-        <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/new">Create a Group</a></button>
+    <div class="container mt-5 pb-5 mb-5">
+        <div class="col text-center border border-dark mt-2 mx-5 pb-2">
+            <h1>Welcome to {{ group.group_name }}, {{request.session.user_name}}! LUP</h1>
+            <div class="col">
+                <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/logout">Logout</a></button>
+                <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/success">Groups</a></button>
+                <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/user/{{ request.session.user_id }}">Go to profile</a></button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-primary float-right"><a class="text-decoration-none text-white" href="/success">Dashboard</a></button>
+        <div class="col text-center">
+            <h2>Prayer List</h2>
+            <textarea name="description" id="description" cols="30" rows="10">{{ group.prayer_list }}</textarea>
         </div>
-    </div>
-    <h1> this is a placeholder for groups {{ group.group_name }}</h1>
-    <h2>Prayer List</h2>
-    <textarea name="description" id="description" cols="30" rows="10">{{ group.prayer_list }}</textarea>
 
-    <div id='write'>
-        <h3>Posts</h3>
-        <div>
-            {% for post in group_messages %}
-                <p>{{post.message}}</p>
-            {% endfor %}
+    
+        <div class="col">
+            <div class="col my-4"> 
+                <h3>Write a new post</h3>
+            <form action="/process_message/{{ group.id }}" method=POST>
+                {% csrf_token %}
+                <input type="text" name='mess'>
+                <input type="submit" value='POST'>
+            </form>
+            </div>
+            
+            <h3>Posts</h3>
+            <div>
+                {% for post in group_messages %}
+                    <p>{{post.message}}</p>
+                {% endfor %}
+            </div>
+
         </div>
-        <h3>Write a new post</h3>
-        <form action="/process_message/{{ group.id }}" method=POST>
-            {% csrf_token %}
-            <input type="text" name='mess'>
-            <input type="submit" value='POST'>
-        </form>
+    
     </div>
 
 </body>
